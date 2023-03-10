@@ -23,3 +23,9 @@ public:
 }
 
 #endif //DAGRUPO_INTERFACE_H
+
+/*Informações do projeto: (Pelo que percebi)
+ * Dados dois destinos, ver a quantidade de comboios que viajam entre esses dois destinos
+ * Tendo em conta todos os pares de estações (na Network), ver qual tem o max de comboios, tirando vantagem da cap da network (?)
+ *
+*/
