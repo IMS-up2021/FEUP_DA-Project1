@@ -19,11 +19,19 @@ private:
     string district_;
     string mun_;
     string township_;
+    string line_;
 
 public:
     Station();
-    Station(string name, string district, string mun, string township);
-    
+    Station(string name, string district, string mun, string township, string line);
+
+    string getName() const;
+    string getDistrict() const;
+    string getMun() const;
+    string getTownship() const;
+    string getLine() const;
+
+
 
 };
 
