@@ -1,0 +1,3 @@
+C:/Users/nesma/Desktop/DAGrupo/cmake-build-debug/CMakeFiles/DAGrupo.dir
+C:/Users/nesma/Desktop/DAGrupo/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/nesma/Desktop/DAGrupo/cmake-build-debug/CMakeFiles/rebuild_cache.dir
