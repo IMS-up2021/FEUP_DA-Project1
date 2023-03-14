@@ -30,9 +30,18 @@ public:
     string getMun() const;
     string getTownship() const;
     string getLine() const;
+    bool operator==(const Station& other) const;
+    bool operator <(const Station& other) const;
+};
 
-
-
+struct StationHash{
+    size_t operator() (const Station& other) const{
+        size_t res = 0;
+        for (char c : other.getName()) {
+            res += 13 * c;
+        }
+        return res;
+    }
 };
 
 #endif //DAGRUPO_STATION_H
