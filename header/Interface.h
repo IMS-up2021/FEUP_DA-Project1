@@ -20,7 +20,7 @@ public:
     Interface();
     Interface(CSVReader& reader);
     int initiate();
-}
+};
 
 #endif //DAGRUPO_INTERFACE_H
 
