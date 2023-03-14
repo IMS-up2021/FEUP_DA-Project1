@@ -19,6 +19,7 @@ private:
 public:
     Network();
     Network(Station a, Station b, string cap, string ser);
+    Network& operator=(const Network &other);
 };
 
 #endif //DAGRUPO_NETWORK_H
