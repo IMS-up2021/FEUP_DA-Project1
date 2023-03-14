@@ -5,6 +5,9 @@
 #ifndef DAGRUPO_CSVREADER_H
 #define DAGRUPO_CSVREADER_H
 
+#include <fstream>
+#include <sstream>
+#include <queue>
 #include <string>
 #include <list>
 
@@ -14,9 +17,12 @@ class CSVReader{
 private:
     void read_network();
     void read_stations();
+    void populate();
+    int calculateNrTrains(const string& stat1, const string& stat2);
 
 public:
     CSVReader();
+
 
 };
 

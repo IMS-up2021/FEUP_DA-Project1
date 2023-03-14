@@ -3,3 +3,13 @@
 //
 
 #include "../header/CSVReader.h"
+
+CSVReader::CSVReader(){
+    populate();
+};
+
+void CSVReader::populate() {
+    read_airports();
+    read_airlines();
+    read_flights();
+}
