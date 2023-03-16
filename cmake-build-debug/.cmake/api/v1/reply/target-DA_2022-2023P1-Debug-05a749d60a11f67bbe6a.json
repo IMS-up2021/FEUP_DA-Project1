@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "DAGrupo.exe"
+			"path" : "DA_2022-2023P1.exe"
 		},
 		{
-			"path" : "DAGrupo.pdb"
+			"path" : "DA_2022-2023P1.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -63,7 +63,7 @@
 			]
 		}
 	],
-	"id" : "DAGrupo::@6890427a1f51a3e7e1df",
+	"id" : "DA_2022-2023P1::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -83,8 +83,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "DAGrupo",
-	"nameOnDisk" : "DAGrupo.exe",
+	"name" : "DA_2022-2023P1",
+	"nameOnDisk" : "DA_2022-2023P1.exe",
 	"paths" : 
 	{
 		"build" : ".",

@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/nesma/Desktop/DAGrupo/cmake-build-debug"
+			"value" : "c:/Users/nesma/Desktop/p1/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -623,7 +623,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/nesma/Desktop/DAGrupo"
+			"value" : "C:/Users/nesma/Desktop/p1"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -851,7 +851,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "DAGrupo"
+			"value" : "DA_2022-2023P1"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1239,7 +1239,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/nesma/Desktop/DAGrupo/cmake-build-debug"
+			"value" : "C:/Users/nesma/Desktop/p1/cmake-build-debug"
 		},
 		{
 			"name" : "DAGrupo_IS_TOP_LEVEL",
@@ -1263,7 +1263,43 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/nesma/Desktop/DAGrupo"
+			"value" : "C:/Users/nesma/Desktop/p1"
+		},
+		{
+			"name" : "DA_2022-2023P1_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Users/nesma/Desktop/p1/cmake-build-debug"
+		},
+		{
+			"name" : "DA_2022-2023P1_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "DA_2022-2023P1_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Users/nesma/Desktop/p1"
 		}
 	],
 	"kind" : "cache",
