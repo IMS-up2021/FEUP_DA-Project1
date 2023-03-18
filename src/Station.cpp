@@ -2,6 +2,8 @@
 // Created by nesma on 09/03/2023.
 //
 
+#include <utility>
+
 #include "../header/Station.h"
 
 Station::Station(){
@@ -12,7 +14,7 @@ Station::Station(){
     line_ = "";
 }
 
-Station::Station(string name, string district, string mun, string township, string line) : name_(name), district_(district), mun_(mun), township_(township), line_(line) {}
+Station::Station(string name, string district, string mun, string township, string line) : name_(std::move(name)), district_(std::move(district)), mun_(std::move(mun)), township_(std::move(township)), line_(std::move(line)) {}
 
 string Station::getName() const{
     return name_;
@@ -46,4 +48,36 @@ bool Station::operator <(const Station& other) const{
         }
     }
     return false;
+}
+
+void Station::setName(const string &name) {
+    name_ = name;
+}
+
+void Station::setDistrict(const string &district) {
+    district_ = district;
+}
+
+void Station::setMun(const string &mun) {
+    mun_ = mun;
+}
+
+void Station::setTownship(const string &township) {
+    township_ = township;
+}
+
+void Station::setLine(const string &line) {
+    line_ = line;
+}
+
+const vector<Trip> &Station::getTrips() const {
+    return trips;
+}
+
+void Station::setTrips(const vector<Trip> &trips1) {
+    Station::trips = trips1;
+}
+
+void Station::addTrip(Trip& trip)  {
+    trips.push_back(trip);
 }

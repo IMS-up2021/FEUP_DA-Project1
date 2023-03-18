@@ -12,10 +12,10 @@
 using namespace std;
 
 class Network{
-private:
     vector<Station> realStations;
+private:
     unordered_map<string, int> stationsNameToIndex;
-    int n;//number of stations
+    int n{};//number of stations
 
 
 
@@ -23,9 +23,17 @@ public:
     Network();
     void addStation(const Station& station);
 
-    void setStationsNameToIndex(const unordered_map<string, int> &stationsNameToIndex);
+    vector<Station>& getRealStations() ;
 
-    void setN(int n);
+    void setRealStations(const vector<Station> &realStations1);
+
+    const unordered_map<string, int> &getStationsNameToIndex() const;
+
+    int getN() const;
+
+    void setStationsNameToIndex(const unordered_map<string, int> &stationsNToI);
+
+    void setN(int i);
 };
 
 #endif //DAGRUPO_NETWORK_H

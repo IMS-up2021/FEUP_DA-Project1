@@ -6,10 +6,12 @@
 #define DAGRUPO_STATION_H
 
 #include <unordered_set>
-#include<math.h>
+#include<cmath>
 #include <List>
 #include<string>
 #include <iostream>
+#include <vector>
+#include "Trip.h"
 
 using namespace std;
 
@@ -18,8 +20,27 @@ private:
     string name_;
     string district_;
     string mun_;
+public:
+    void setName(const string &name);
+
+    void setDistrict(const string &district);
+
+    void setMun(const string &mun);
+
+    void setTownship(const string &township);
+
+    void setLine(const string &line);
+
+    const vector<Trip> &getTrips() const;
+
+    void setTrips(const vector<Trip> &trips1);
+
+    void addTrip(Trip& trip) ;
+
+private:
     string township_;
     string line_;
+    vector<Trip> trips;
 
 public:
     Station();
@@ -34,7 +55,7 @@ public:
     bool operator <(const Station& other) const;
 };
 
-struct StationHash{
+/*struct StationHash{
     size_t operator() (const Station& other) const{
         size_t res = 0;
         for (char c : other.getName()) {
@@ -42,6 +63,6 @@ struct StationHash{
         }
         return res;
     }
-};
+};*/
 
 #endif //DAGRUPO_STATION_H

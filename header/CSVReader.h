@@ -17,14 +17,11 @@ using namespace std;
 class CSVReader{
 private:
     void populate();
-
-    void read_network(const string &file, Network *network);
-    int calculateNrTrains(const string& stat1, const string& stat2);
+    //int calculateNrTrains(const string& stat1, const string& stat2);
 
 public:
     CSVReader();
-
-
+    static void read_network(const string &file, Network *network);
     static void read_stations(const string &file, Network *network);
 };
 
