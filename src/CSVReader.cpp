@@ -7,10 +7,8 @@
 CSVReader::CSVReader()= default;;
 
 void CSVReader::populate() {
-
-    /*read_airports();
-    read_airlines();
-    read_flights();*/
+    /*read_stations();
+    read_network();*/
 }
 
 void CSVReader::read_stations(const string &file, Network *network) {
