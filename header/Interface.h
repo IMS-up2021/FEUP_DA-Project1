@@ -19,13 +19,13 @@ private:
 public:
     Interface();
     Interface(CSVReader& reader);
+    bool is_in(string choice, int lim_start, int lim_end) const;
     int initiate();
 };
 
 #endif //DAGRUPO_INTERFACE_H
 
 /*Informações do projeto: (Pelo que percebi)
- * Dados dois destinos, ver a quantidade de comboios que viajam entre esses dois destinos
- * Tendo em conta todos os pares de estações (na Network), ver qual tem o max de comboios, tirando vantagem da cap da network (?)
- *
+ *T2.1 - maximum flow (aplicar EdmondsKarp)
+ * T2.2 - todos os pares (qual tem o max flow)
 */
