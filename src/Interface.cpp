@@ -61,7 +61,7 @@ int Interface::initiate() {
             if (w == "1") {
                 MenuGlobal:
                 string g;
-                //aplicar a função a designar
+                //aplicar função do ex7 da tp4
                 cout << "To go back press[0]" << endl;
                 cin >> g;
                 if (g == "0") goto MenuFlow;
@@ -90,8 +90,11 @@ int Interface::initiate() {
 
         //if 3.
         else if (b == "3"){
-            MenuMax: string a;
-            //aplicar função a designar.
+            MenuMax: string a, stb;
+            cout << "Please, introduce the name of the station: " << endl
+            cin.ignore();
+            getline(cin,stb);
+            cout << << stb << ", " << maxArrivals(net, stb) << endl;
             cout << "To go back press[0]" << endl;
             cin >> a;
             if (a == "0") goto MenuBasic;

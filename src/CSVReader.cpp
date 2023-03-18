@@ -70,3 +70,17 @@ void CSVReader::read_network(const string &file, Network *network) {
         network->getRealStations()[source -1].addTrip(trip);
     }
 }
+
+int CSVReader::maxArrivals(const Netwowrk& net, const string& stb){
+    int capSum = 0;
+    int i = network.getStationsNameToIndex().at(stb);
+
+    for (const auto& station : net.getRealStations()) {
+        for (const auto& trip : station.getTrips()) {
+            if (trip.getDestination() == i) {
+                capSum += trip.getCapacity();
+            }
+        }
+    }
+    return capSum;
+}

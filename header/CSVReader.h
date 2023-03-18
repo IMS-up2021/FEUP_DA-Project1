@@ -18,6 +18,7 @@ class CSVReader{
 private:
     void populate();
     //int calculateNrTrains(const string& stat1, const string& stat2);
+    int maxArrivals(const Netwowrk& net, const string& stb);
 
 public:
     CSVReader();
