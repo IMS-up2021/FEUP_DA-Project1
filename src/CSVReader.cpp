@@ -35,16 +35,40 @@ void CSVReader::read_stations(const string &file, Network *network) {
         getline(inputString, mun, ',');
         getline(inputString, township, ',');
         getline(inputString, lineData, ',');
-        //if (hashTable.find(name) == hashTable.end()) {
+        if (hashTable.find(name) == hashTable.end()) {
             Station station = Station(name,district,mun,township,lineData);
             network->addStation(station);
             hashTable[name] = counter++;
-        //}
+        }
     }
     network->setStationsNameToIndex(hashTable);
     network->setN(--counter);
 }
 
 void CSVReader::read_network(const string &file, Network *network) {
+    ifstream in;
+    in.open(file);
+    static string line;
+    getline(in, line);
 
+    while(getline(in,line)){
+        string stationA;
+        string stationB;
+        string capacityString;
+        string service;
+
+        stringstream inputString(line);
+
+        getline(inputString, stationA, ',');
+        getline(inputString, stationB, ',');
+        getline(inputString,capacityString , ',');
+        getline(inputString, service, ',');
+        int capacity = atoi(capacityString.c_str());
+        unordered_map<string,int> nameToIndex;
+        nameToIndex = network->getStationsNameToIndex();
+        int source;
+        source = nameToIndex[stationA];
+        Trip trip = Trip(nameToIndex[stationB],capacity,service);
+        network->getRealStations()[source -1].addTrip(trip);
+    }
 }

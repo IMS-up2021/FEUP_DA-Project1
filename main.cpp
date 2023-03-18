@@ -6,7 +6,9 @@ using namespace std;
 int main() {
     std::cout << "Hello, World!" << std::endl;
     string stationsPath = "../Data/stations.csv";
-    Network *n = new Network();
+    string networkPath = "../Data/network.csv";
+    auto *n = new Network();
     CSVReader::read_stations(stationsPath,n);
+    CSVReader::read_network(networkPath,n);
     return 0;
 }

@@ -1,3 +1,0 @@
-C:/Users/nesma/Desktop/p1/cmake-build-debug/CMakeFiles/DA_2022-2023P1.dir
-C:/Users/nesma/Desktop/p1/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/nesma/Desktop/p1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
