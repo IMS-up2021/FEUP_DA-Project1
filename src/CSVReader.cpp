@@ -71,9 +71,9 @@ void CSVReader::read_network(const string &file, Network *network) {
     }
 }
 
-int CSVReader::maxArrivals(const Netwowrk& net, const string& stb){
+int CSVReader::maxArrivals(const Network& net, const string& stb){
     int capSum = 0;
-    int i = network.getStationsNameToIndex().at(stb);
+    int i = net.getStationsNameToIndex().at(stb);
 
     for (const auto& station : net.getRealStations()) {
         for (const auto& trip : station.getTrips()) {
@@ -83,4 +83,54 @@ int CSVReader::maxArrivals(const Netwowrk& net, const string& stb){
         }
     }
     return capSum;
+}
+
+/*This code creates two vectors of pairs: sortedMunicipalities and sortedDistricts. Each pair has a string as the
+ first element and an int as the second element. The string element represents the name of the municipality or
+ district, and the int element represents the sum of capacities of all trips starting or ending in the corresponding
+ municipality or district.
+The constructor of each vector receives two arguments: the first argument is an iterator pointing to the beginning
+ of the source container, and the second argument is an iterator pointing to the end of the source container (map).
+After the vectors are created, the sort() algorithm is used to sort them in descending order of the int values
+ (i.e., the sum of capacities) */
+
+vector<pair<string, int>> CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
+    if (x == "1"){
+        unordered_map<string, int> munCapacity;
+
+        // Sum the capacity by municipality
+        for (const auto& station : stations) {
+            int capacitySum = 0;
+            for (const auto& trip : station.getTrips()) {
+                capacitySum += trip.getCapacity();
+            }
+            munCapacity[station.getMun()] += capacitySum;
+        }
+
+        //creating a sorted vector
+        vector<pair<string, int>> sortedMunicipalities(munCapacity.begin(), munCapacity.end());
+        sort(sortedMunicipalities.begin(), sortedMunicipalities.end(), [](auto& left, auto& right) { return left.second > right.second; });
+        vector<pair<string, int>> topKMunicipalities(sortedMunicipalities.begin(), sortedMunicipalities.begin() + k);
+
+        return topKMunicipalities;
+    }
+    else if (x == "2"){
+        unordered_map<string, int> districtCapacity;
+
+        // Sum the capacity by district
+        for (const auto& station : stations) {
+            int capacitySum = 0;
+            for (const auto& trip : station.getTrips()) {
+                capacitySum += trip.getCapacity();
+            }
+            districtCapacity[station.getDistrict()] += capacitySum;
+        }
+
+        //creating a sorted vector
+        vector<pair<string, int>> sortedDistricts(districtCapacity.begin(), districtCapacity.end());
+        sort(sortedDistricts.begin(), sortedDistricts.end(), [](auto& left, auto& right) { return left.second > right.second; });
+        vector<pair<string, int>> topKDistricts(sortedDistricts.begin(), sortedDistricts.begin() + k);
+
+        return topKDistricts;
+    }
 }

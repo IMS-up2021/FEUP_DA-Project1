@@ -80,21 +80,32 @@ int Interface::initiate() {
 
         //if 2.
         else if (b == "2"){
-            MenuTop: string t;
-            //aplicar a funçao a designar.
-            cout << "To go back press[0]" << endl;
-            cin >> t;
-            if (t == "0") goto MenuBasic;
-            while(t != "0"){ cin >> t; }
+            MenuTop: string t,x, k;
+            cout << "Introduce the method: \n\t1. By municiple \n\t2. By district \n\t0. Go back" << endl;
+            if (x == "0") goto MenuBasic;
+            else{
+                cout << "Enter the k: " << endl;
+                cin >> k;
+                int k1 = stoi(k);
+                cout << topKmaintenance(stations, k1, x) << endl;
+
+                cout << " " << endl;
+                cout << "To go back press[0]" << endl;
+                cin >> t;
+                if (t == "0") goto MenuBasic;
+                while(t != "0"){ cin >> t; }
+            }
         }
 
         //if 3.
         else if (b == "3"){
             MenuMax: string a, stb;
-            cout << "Please, introduce the name of the station: " << endl
+            cout << "Please, introduce the name of the station: " << endl;
             cin.ignore();
             getline(cin,stb);
-            cout << << stb << ", " << maxArrivals(net, stb) << endl;
+            cout << stb << ", " << maxArrivals(net, stb) << endl;
+
+            cout << " " << endl;
             cout << "To go back press[0]" << endl;
             cin >> a;
             if (a == "0") goto MenuBasic;

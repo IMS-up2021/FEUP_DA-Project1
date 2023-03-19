@@ -10,6 +10,9 @@
 #include <queue>
 #include <string>
 #include <list>
+#include <unordered_map>
+#include <vector>
+#include <algorithm>
 #include "Network.h"
 
 using namespace std;
@@ -18,7 +21,8 @@ class CSVReader{
 private:
     void populate();
     //int calculateNrTrains(const string& stat1, const string& stat2);
-    int maxArrivals(const Netwowrk& net, const string& stb);
+    int maxArrivals(const Network& net, const string& stb);
+    vector<pair<string, int>> topKmaintenance(const vector<Station>& stations, int k, const string& x);
 
 public:
     CSVReader();
