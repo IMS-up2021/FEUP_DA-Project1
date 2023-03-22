@@ -94,7 +94,7 @@ The constructor of each vector receives two arguments: the first argument is an 
 After the vectors are created, the sort() algorithm is used to sort them in descending order of the int values
  (i.e., the sum of capacities) */
 
-vector<pair<string, int>> CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
+void CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
     if (x == "1"){
         unordered_map<string, int> munCapacity;
 
@@ -112,7 +112,9 @@ vector<pair<string, int>> CSVReader::topKmaintenance(const vector<Station>& stat
         sort(sortedMunicipalities.begin(), sortedMunicipalities.end(), [](auto& left, auto& right) { return left.second > right.second; });
         vector<pair<string, int>> topKMunicipalities(sortedMunicipalities.begin(), sortedMunicipalities.begin() + k);
 
-        return topKMunicipalities;
+        while (int x = 0; x <= topKMunicipalities.size(); x++){
+            cout << topKMunicipalities[x] << endl;
+        }
     }
     else if (x == "2"){
         unordered_map<string, int> districtCapacity;
@@ -131,6 +133,9 @@ vector<pair<string, int>> CSVReader::topKmaintenance(const vector<Station>& stat
         sort(sortedDistricts.begin(), sortedDistricts.end(), [](auto& left, auto& right) { return left.second > right.second; });
         vector<pair<string, int>> topKDistricts(sortedDistricts.begin(), sortedDistricts.begin() + k);
 
-        return topKDistricts;
+        while (int x = 0; x <= topKDistricts.size(); x++){
+            cout << topKDistricts[x] << endl;
+        }
     }
 }
+
