@@ -94,7 +94,7 @@ The constructor of each vector receives two arguments: the first argument is an 
 After the vectors are created, the sort() algorithm is used to sort them in descending order of the int values
  (i.e., the sum of capacities) */
 
-vector<pair<string, int>> CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
+void CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
     if (x == "1"){
         unordered_map<string, int> munCapacity;
 
@@ -112,7 +112,9 @@ vector<pair<string, int>> CSVReader::topKmaintenance(const vector<Station>& stat
         sort(sortedMunicipalities.begin(), sortedMunicipalities.end(), [](auto& left, auto& right) { return left.second > right.second; });
         vector<pair<string, int>> topKMunicipalities(sortedMunicipalities.begin(), sortedMunicipalities.begin() + k);
 
-        return topKMunicipalities;
+        while (int x = 0; x <= topKMunicipalities.size(); x++){
+            cout << topKMunicipalities[x] << endl;
+        }
     }
     else if (x == "2"){
         unordered_map<string, int> districtCapacity;
@@ -131,6 +133,32 @@ vector<pair<string, int>> CSVReader::topKmaintenance(const vector<Station>& stat
         sort(sortedDistricts.begin(), sortedDistricts.end(), [](auto& left, auto& right) { return left.second > right.second; });
         vector<pair<string, int>> topKDistricts(sortedDistricts.begin(), sortedDistricts.begin() + k);
 
-        return topKDistricts;
+        for (auto x : topKDistricts){
+            cout << x << endl;
+        }
+    }
+}
+
+void CSVReader::topKfailure(const vector<pair<Station,Station>>& segmentFailures, int k){
+    unordered_map<string, int> station_impact;
+
+    //calculate the impact of each station
+    for (const auto& segment : segmentFailures){
+        const auto& startStation = segment.first;
+        const auto& endStation = segment.second;
+
+        //increment impact for each station involved in segment failure
+        station_impact[startStation.getName()]++;
+        station_impact[endStation.getName()]++;
+    }
+
+    //sort affected stations by impact
+    vector<pair<string, int>> affectedStations(station_impact.begin(),station_impact.end());
+    sort(affectedStations.begin(), affectedStations.end(), [](const auto& left, const auto& right){ return left.second > right.second;});
+    vector<pair<string, int>> topK(affectedStations.begin(), affectedStations.begin() + k);
+
+    //print top-k
+    for (auto x : topK){
+        cout << x << endl;
     }
 }
