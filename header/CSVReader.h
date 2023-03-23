@@ -20,8 +20,8 @@ using namespace std;
 class CSVReader {
 private:
     void populate();
-
-    vector<pair<string, int>> topKmaintenance(const vector<Station> &stations, int k, const string &x);
+    void topKmaintenance(const vector<Station>& stations, int k, const string& x);
+    void topKfailure(const vector<pair<Station,Station>>& segmentFailures, int k);
 
 public:
     CSVReader();
@@ -29,8 +29,6 @@ public:
     static void read_network(const string &file, Network *network);
 
     static void read_stations(const string &file, Network *network);
-
-//int calculateNrTrains(const string& stat1, const string& stat2);
 };
 
 #endif //DAGRUPO_CSVREADER_H
