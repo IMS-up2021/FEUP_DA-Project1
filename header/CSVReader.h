@@ -23,6 +23,7 @@ private:
     //int calculateNrTrains(const string& stat1, const string& stat2);
     int maxArrivals(const Network& net, const string& stb);
     void topKmaintenance(const vector<Station>& stations, int k, const string& x);
+    void topKfailure(const vector<pair<Station,Station>>& segmentFailures, int k);
 
 public:
     CSVReader();
