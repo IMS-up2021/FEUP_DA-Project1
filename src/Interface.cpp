@@ -87,7 +87,7 @@ int Interface::initiate() {
                 cout << "Enter the k: " << endl;
                 cin >> k;
                 int k1 = stoi(k);
-                cout << topKmaintenance(stations, k1, x) << endl;
+                topKmaintenance(stations, k1, x);
 
                 cout << " " << endl;
                 cout << "To go back press[0]" << endl;
@@ -145,10 +145,16 @@ int Interface::initiate() {
         //if 2.
         if (f == "1"){
             MenuK: string k;
-            cout << "To go back press[0]" << endl;
+            cout << "Enter the k: " << endl;
             cin >> k;
-            if (k == "0") goto MenuFailure;
-            while(k != "0"){ cin >> k; }
+            int k1 = stoi(k);
+            topKfailure(segmentFailures, k1);
+
+            cout << " " << endl;
+            cout << "To go back press[0]" << endl;
+            cin >> t;
+            if (t == "0") goto MenuBasic;
+            while(t != "0"){ cin >> t; }
         }
     }
 
