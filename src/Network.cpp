@@ -33,3 +33,16 @@ const unordered_map<string, int> &Network::getStationsNameToIndex() const {
 int Network::getN() const {
     return n;
 }
+int Network::maxArrivals( const string& stb){
+    int capSum = 0;
+    int i = getStationsNameToIndex().at(stb);
+
+    for (const auto& station : getRealStations()) {
+        for (const auto& trip : station.getTrips()) {
+            if (trip.getDestination() == i) {
+                capSum += trip.getCapacity();
+            }
+        }
+    }
+    return capSum;
+}

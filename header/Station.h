@@ -15,11 +15,14 @@
 
 using namespace std;
 
-class Station{
+class Station {
 private:
     string name_;
     string district_;
     string mun_;
+    string township_;
+    string line_;
+    vector<Trip> trips;
 public:
     void setName(const string &name);
 
@@ -35,24 +38,25 @@ public:
 
     void setTrips(const vector<Trip> &trips1);
 
-    void addTrip(Trip& trip) ;
+    void addTrip(Trip &trip);
 
-private:
-    string township_;
-    string line_;
-    vector<Trip> trips;
-
-public:
     Station();
+
     Station(string name, string district, string mun, string township, string line);
 
     string getName() const;
+
     string getDistrict() const;
+
     string getMun() const;
+
     string getTownship() const;
+
     string getLine() const;
-    bool operator==(const Station& other) const;
-    bool operator <(const Station& other) const;
+
+    bool operator==(const Station &other) const;
+
+    bool operator<(const Station &other) const;
 };
 
 /*struct StationHash{

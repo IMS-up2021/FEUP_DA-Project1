@@ -34,6 +34,8 @@ public:
     void setStationsNameToIndex(const unordered_map<string, int> &stationsNToI);
 
     void setN(int i);
+
+    int maxArrivals(const string &stb);
 };
 
 #endif //DAGRUPO_NETWORK_H

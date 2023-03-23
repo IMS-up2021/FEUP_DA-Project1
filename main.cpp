@@ -10,5 +10,6 @@ int main() {
     auto *n = new Network();
     CSVReader::read_stations(stationsPath,n);
     CSVReader::read_network(networkPath,n);
+    n->maxArrivals("Lisboa Oriente");
     return 0;
 }

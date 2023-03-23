@@ -16,7 +16,7 @@ bool Interface::is_in(string choice, int lim_start, int lim_end) const{
     return false;
 }
 
-int Interface::initiate() {
+/*int Interface::initiate() {
     MenuPrincipal: string userInput;
     cout << "Introduza o numero do comando: \n\t1. Stations Map \n\t2. Basic Services \n\t3. Operation Cost Optimization \n\t4.Reliability and Sensivity to Line Failures \n\t0. Exit Program" << endl;
     cin >> userInput;
@@ -153,6 +153,6 @@ int Interface::initiate() {
     }
 
     return 0;
-}
+}*/
 
 Interface::Interface(CSVReader &reader) : database(&reader) {}

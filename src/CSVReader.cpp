@@ -71,19 +71,7 @@ void CSVReader::read_network(const string &file, Network *network) {
     }
 }
 
-int CSVReader::maxArrivals(const Network& net, const string& stb){
-    int capSum = 0;
-    int i = net.getStationsNameToIndex().at(stb);
 
-    for (const auto& station : net.getRealStations()) {
-        for (const auto& trip : station.getTrips()) {
-            if (trip.getDestination() == i) {
-                capSum += trip.getCapacity();
-            }
-        }
-    }
-    return capSum;
-}
 
 /*This code creates two vectors of pairs: sortedMunicipalities and sortedDistricts. Each pair has a string as the
  first element and an int as the second element. The string element represents the name of the municipality or
@@ -94,6 +82,7 @@ The constructor of each vector receives two arguments: the first argument is an 
 After the vectors are created, the sort() algorithm is used to sort them in descending order of the int values
  (i.e., the sum of capacities) */
 
+/*
 vector<pair<string, int>> CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
     if (x == "1"){
         unordered_map<string, int> munCapacity;
@@ -134,3 +123,4 @@ vector<pair<string, int>> CSVReader::topKmaintenance(const vector<Station>& stat
         return topKDistricts;
     }
 }
+*/
