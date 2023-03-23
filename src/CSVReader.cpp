@@ -80,9 +80,10 @@ void CSVReader::read_network(const string &file, Network *network) {
 The constructor of each vector receives two arguments: the first argument is an iterator pointing to the beginning
  of the source container, and the second argument is an iterator pointing to the end of the source container (map).
 After the vectors are created, the sort() algorithm is used to sort them in descending order of the int values
- (i.e., the sum of capacities) */
+ (i.e., the sum of capacities)*/
 
-/*
+
+
 void CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
     if (x == "1"){
         unordered_map<string, int> munCapacity;
@@ -101,8 +102,8 @@ void CSVReader::topKmaintenance(const vector<Station>& stations, int k, const st
         sort(sortedMunicipalities.begin(), sortedMunicipalities.end(), [](auto& left, auto& right) { return left.second > right.second; });
         vector<pair<string, int>> topKMunicipalities(sortedMunicipalities.begin(), sortedMunicipalities.begin() + k);
 
-        while (int x = 0; x <= topKMunicipalities.size(); x++){
-            cout << topKMunicipalities[x] << endl;
+        for (int x = 0; x <= topKMunicipalities.size(); x++){
+            cout << topKMunicipalities[x].first << endl;
         }
     }
     else if (x == "2"){
@@ -122,13 +123,13 @@ void CSVReader::topKmaintenance(const vector<Station>& stations, int k, const st
         sort(sortedDistricts.begin(), sortedDistricts.end(), [](auto& left, auto& right) { return left.second > right.second; });
         vector<pair<string, int>> topKDistricts(sortedDistricts.begin(), sortedDistricts.begin() + k);
 
-        for (auto x : topKDistricts){
-            cout << x << endl;
-        }
+        for (auto x: topKDistricts)
+            cout << x.first << endl;
+
     }
 }
 
-void CSVReader::topKfailure(const vector<pair<Station,Station>>& segmentFailures, int k){
+void CSVReader::topKFailure(const vector<pair<Station,Station>>& segmentFailures, int k){
     unordered_map<string, int> station_impact;
 
     //calculate the impact of each station
@@ -148,7 +149,7 @@ void CSVReader::topKfailure(const vector<pair<Station,Station>>& segmentFailures
 
     //print top-k
     for (auto x : topK){
-        cout << x << endl;
+        cout << x.first<< endl;
     }
 }
-*/
+

@@ -16,7 +16,7 @@ bool Interface::is_in(string choice, int lim_start, int lim_end) const{
     return false;
 }
 
-/*int Interface::initiate() {
+int Interface::initiate() {
     MenuPrincipal: string userInput;
     cout << "Introduza o numero do comando: \n\t1. Stations Map \n\t2. Basic Services \n\t3. Operation Cost Optimization \n\t4.Reliability and Sensivity to Line Failures \n\t0. Exit Program" << endl;
     cin >> userInput;
@@ -87,7 +87,7 @@ bool Interface::is_in(string choice, int lim_start, int lim_end) const{
                 cout << "Enter the k: " << endl;
                 cin >> k;
                 int k1 = stoi(k);
-                topKmaintenance(stations, k1, x);
+                //topKmaintenance(stations, k1, x);
 
                 cout << " " << endl;
                 cout << "To go back press[0]" << endl;
@@ -103,7 +103,7 @@ bool Interface::is_in(string choice, int lim_start, int lim_end) const{
             cout << "Please, introduce the name of the station: " << endl;
             cin.ignore();
             getline(cin,stb);
-            cout << stb << ", " << maxArrivals(net, stb) << endl;
+            //cout << stb << ", " << maxArrivals(net, stb) << endl;
 
             cout << " " << endl;
             cout << "To go back press[0]" << endl;
@@ -148,17 +148,17 @@ bool Interface::is_in(string choice, int lim_start, int lim_end) const{
             cout << "Enter the k: " << endl;
             cin >> k;
             int k1 = stoi(k);
-            topKfailure(segmentFailures, k1);
+            /*topKFailure(segmentFailures, k1);
 
             cout << " " << endl;
             cout << "To go back press[0]" << endl;
             cin >> t;
             if (t == "0") goto MenuBasic;
-            while(t != "0"){ cin >> t; }
+            while(t != "0"){ cin >> t; }*/
         }
     }
 
     return 0;
-}*/
+}
 
 Interface::Interface(CSVReader &reader) : database(&reader) {}
