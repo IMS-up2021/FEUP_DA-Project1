@@ -44,6 +44,7 @@ void CSVReader::read_stations(const string &file, Network *network) {
 }
 
 void CSVReader::read_network(const string &file, Network *network) {
+    network->fillResidual();
     ifstream in;
     in.open(file);
     static string line;
@@ -65,10 +66,14 @@ void CSVReader::read_network(const string &file, Network *network) {
         unordered_map<string,int> nameToIndex;
         nameToIndex = network->getStationsNameToIndex();
         int source;
-        source = nameToIndex[stationA];
-        Trip trip = Trip(nameToIndex[stationB],capacity,service);
-        network->getRealStations()[source -1].addTrip(trip);
+        source = nameToIndex[stationA] - 1;
+        int destination ;
+        destination = nameToIndex[stationB] - 1;
+        network->setResidualCap(source,destination,capacity);
+        Trip trip = Trip(destination,capacity,service);
+        network->getRealStations()[source].addTrip(trip);
     }
+    network->setResidualReset(network->getResidual());
 }
 
 
@@ -84,7 +89,7 @@ After the vectors are created, the sort() algorithm is used to sort them in desc
 
 
 
-void CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
+/*void CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
     if (x == "1"){
         unordered_map<string, int> munCapacity;
 
@@ -153,3 +158,4 @@ void CSVReader::topKFailure(const vector<pair<Station,Station>>& segmentFailures
     }
 }
 
+*/
