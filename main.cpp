@@ -11,6 +11,9 @@ int main() {
     CSVReader::read_stations(stationsPath,n);
     CSVReader::read_network(networkPath,n);
     //n->maxArrivals("Lisboa Oriente");
-    n->maxFlowTrains("Casa Branca","Monte das Flores");
+    n->maxFlowStations();
+    n->maxFlowStations("Casa Branca","Monte das Flores");
+    n->maxFlowPairs();
+
     return 0;
 }

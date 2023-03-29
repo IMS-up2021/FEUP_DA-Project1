@@ -9,7 +9,7 @@ using namespace std;
 
 Network::Network() = default;
 
-void Network::addStation(const Station& station) {
+void Network::addStation(const Station &station) {
     this->realStations.push_back(station);
 }
 
@@ -36,12 +36,13 @@ const unordered_map<string, int> &Network::getStationsNameToIndex() const {
 int Network::getN() const {
     return n;
 }
-int Network::maxArrivals( const string& stb){
+
+int Network::maxArrivals(const string &stb) {
     int capSum = 0;
     int i = getStationsNameToIndex().at(stb);
 
-    for (const auto& station : getRealStations()) {
-        for (const auto& trip : station.getTrips()) {
+    for (const auto &station: getRealStations()) {
+        for (const auto &trip: station.getTrips()) {
             if (trip.getDestination() == i) {
                 capSum += trip.getCapacity();
             }
@@ -50,13 +51,26 @@ int Network::maxArrivals( const string& stb){
     return capSum;
 }
 
-int Network::maxFlowTrains(const string& station1, const string& station2) {
-    int stationOne,stationTwo;
-    stationOne = stationsNameToIndex[station1] - 1;
-    stationTwo = stationsNameToIndex[station2] - 1;
-    return max_flow(stationOne,stationTwo);
-}
+int Network::maxFlowStations(string station1, string station2) {
+    int stationOne, stationTwo;
+    if (station1 == "none") {
+        cout << "Enter station of origin:\n";
+        getline(cin, station1);
+        cout << "Enter station of destination:\n";
+        getline(cin, station2);
+        cout << "From " << station1 << " to " << station2 << " ";
 
+    }
+
+    stationOne = stationsNameToIndex[station1] - 1;
+
+    stationTwo = stationsNameToIndex[station2] - 1;
+    int mf = max_flow(stationOne, stationTwo);
+    residual = residualReset;
+    cout << "FLOW:" << mf;
+    return mf;
+
+}
 
 const int INF = 1e9;
 
@@ -66,7 +80,7 @@ vector<vector<int>> capacity; // capacity of each edge
 //vector<vector<int>> residual; // residual capacity of each edge
 vector<int> parent; // parent of each node in the BFS tree
 
-int Network::bfs(int s, int t){
+int Network::bfs(int s, int t) {
     parent.resize(n);
     fill(parent.begin(), parent.end(), -1);
     parent[s] = -2; // mark source node as visited
@@ -76,7 +90,7 @@ int Network::bfs(int s, int t){
         int u = q.front().first;
         int cap = q.front().second;
         q.pop();
-        for (const Trip& trip : this->realStations[s].getTrips()) {
+        for (const Trip &trip: this->realStations[s].getTrips()) {
             int v = trip.getDestination();
             if (parent[v] == -1 && residual[u][v] > 0) {
                 parent[v] = u;
@@ -94,8 +108,8 @@ void Network::fillResidual() {
 }
 
 
-void Network::setResidualCap(int a,int b, int cap) {
-    residual[a][b]= cap;//from a to b cost is cap
+void Network::setResidualCap(int a, int b, int cap) {
+    residual[a][b] = cap;//from a to b cost is cap
 }
 
 int Network::max_flow(int s, int t) {
@@ -130,6 +144,28 @@ const vector<vector<int>> &Network::getResidualReset() const {
 void Network::setResidualReset(const vector<vector<int>> &residualReset) {
     Network::residualReset = residualReset;
 }
+
+vector<pair<Station, Station>> Network::maxFlowPairs() {
+    int max=-1;
+    vector<pair<Station, Station>> pairs;
+    for(const Station& station:realStations){
+        for (const Station& station2:realStations) {
+            int a = maxFlowStations(station.getName(),station2.getName());
+            if(a > max){
+                max = a;
+                pairs.clear();
+                pairs.emplace_back(station,station2);
+
+            } else if (a==max){
+                pairs.emplace_back(station,station2);
+            }
+        }
+    }
+
+    return pairs;
+}
+
+
 
 
 

@@ -4,8 +4,6 @@
 
 #ifndef DAGRUPO_NETWORK_H
 #define DAGRUPO_NETWORK_H
-
-#include <vector>
 #include <unordered_map>
 #include "Station.h"
 
@@ -48,7 +46,7 @@ public:
 
     int maxArrivals(const string &stb);
 
-    int maxFlowTrains(const string& station1, const string& station2);
+    int maxFlowStations(string station1 = "none", string station2 = "none");
 
     int bfs(int s, int t);
 
@@ -57,6 +55,8 @@ public:
     void setResidualCap(int a, int b,int cap); //from a to b
 
     int max_flow(int s, int t);
+
+    vector<pair<Station,Station>> maxFlowPairs();
 };
 
 #endif //DAGRUPO_NETWORK_H

@@ -8,7 +8,6 @@
 #include <unordered_set>
 #include<cmath>
 #include <List>
-#include<string>
 #include <iostream>
 #include <vector>
 #include "Trip.h"
