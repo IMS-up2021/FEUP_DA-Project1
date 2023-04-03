@@ -126,3 +126,53 @@ int Station::minCost(Station* src, Station* dest) {
     //destination isn't reachable
     return -1;
 }
+
+
+// Helper function to get the index of a station in the graph
+int getStationIndex(const vector<Station>& graph, const Station& station) {
+    auto it = find(graph.begin(), graph.end(), station);
+    if (it != graph.end()) {
+        return distance(graph.begin(), it);
+    } else {
+        return -1;  //not found
+    }
+}
+
+// Modified version of Dijkstra's algorithm
+int maxTrainsBetweenStations(const vector<Station>& graph, const Station& source, const Station& destination) {
+    int sourceIndex = getStationIndex(graph, source);
+    int destIndex = getStationIndex(graph, destination);
+    if (sourceIndex < 0 || destIndex < 0) {
+        return -1;  // Invalid
+    }
+
+    int numStations = graph.size();
+    vector<int> dist(numStations, numeric_limits<int>::max());
+    vector<int> prev(numStations, -1);
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+
+    dist[sourceIndex] = 0;
+    pq.push({0, sourceIndex});
+
+    while (!pq.empty()) {
+        int x = pq.top().second;
+        pq.pop();
+
+        if (x == destIndex) {
+            break;  // Found shortest path
+        }
+
+    int maxTrains = 0;
+    int c = destIndex;
+    while (prev[c] != -1) {
+        for (const auto& trip : graph[c].getTrips()) {
+            if (trip.getDestination() == prev[c]) {
+                maxTrains = max(maxTrains, trip.getCapacity());
+                break;
+            }
+        }
+        c = prev[c];
+    }
+
+    return maxTrains;
+}

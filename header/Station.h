@@ -58,6 +58,8 @@ public:
     bool operator<(const Station &other) const;
 
     int minCost(Station* src, Station* dest);
+
+    int maxTrainsBetweenStations(const vector<Station>& graph, const Station& source, const Station& destination);
 };
 
 //I don't know if it's needed
