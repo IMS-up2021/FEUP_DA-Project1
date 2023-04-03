@@ -17,17 +17,17 @@
 
 using namespace std;
 
-class CSVReader{
+class CSVReader {
 private:
     void populate();
-    //int calculateNrTrains(const string& stat1, const string& stat2);
-    int maxArrivals(const Network& net, const string& stb);
-    void topKmaintenance(const vector<Station>& stations, int k, const string& x);
-    void topKfailure(const vector<pair<Station,Station>>& segmentFailures, int k);
+    static void topKmaintenance(const vector<Station>& stations, int k, const string& x);
+    static void topKFailure(const vector<pair<Station,Station>>& segmentFailures, int k);
 
 public:
     CSVReader();
+
     static void read_network(const string &file, Network *network);
+
     static void read_stations(const string &file, Network *network);
 };
 

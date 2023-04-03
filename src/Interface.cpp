@@ -35,7 +35,7 @@ int Interface::initiate() {
         while(m != "0"){ cin >> m; }
     }
 
-    //Basic Services
+        //Basic Services
     else if (userInput == "2"){
         MenuBasic: string b;
         cout << "Introduza o numero do comando: \n\t1. Stations with most flow \n\t2. Top-K Maintenance \n\t3. Maximum arrivals \n\t0. Go back" << endl;
@@ -67,7 +67,7 @@ int Interface::initiate() {
                 if (g == "0") goto MenuFlow;
                 while (g != "0") { cin >> g; }
             }
-            //if perso
+                //if perso
             else if (w == "2"){
                 MenuPer: string p;
                 //aplicar função do ex7 da tp4
@@ -78,7 +78,7 @@ int Interface::initiate() {
             }
         }
 
-        //if 2.
+            //if 2.
         else if (b == "2"){
             MenuTop: string t,x, k;
             cout << "Introduce the method: \n\t1. By municiple \n\t2. By district \n\t0. Go back" << endl;
@@ -87,7 +87,7 @@ int Interface::initiate() {
                 cout << "Enter the k: " << endl;
                 cin >> k;
                 int k1 = stoi(k);
-                topKmaintenance(stations, k1, x);
+                //topKmaintenance(stations, k1, x);
 
                 cout << " " << endl;
                 cout << "To go back press[0]" << endl;
@@ -97,13 +97,13 @@ int Interface::initiate() {
             }
         }
 
-        //if 3.
+            //if 3.
         else if (b == "3"){
             MenuMax: string a, stb;
             cout << "Please, introduce the name of the station: " << endl;
             cin.ignore();
             getline(cin,stb);
-            cout << stb << ", " << maxArrivals(net, stb) << endl;
+            //cout << stb << ", " << maxArrivals(net, stb) << endl;
 
             cout << " " << endl;
             cout << "To go back press[0]" << endl;
@@ -113,7 +113,7 @@ int Interface::initiate() {
         }
     }
 
-    //Optimization
+        //Optimization
     else if (userInput == "3"){
         MenuCost: string c;
         cout << "To go back press[0]" << endl;
@@ -122,7 +122,7 @@ int Interface::initiate() {
         while(c != "0"){ cin >> c; }
     }
 
-    //Line Failures
+        //Line Failures
     else if (userInput == "4"){
         MenuFailure: string f;
         cout << "Introduza o numero do comando: \n\t1. Maximum flow with minimum connections \n\t2. Top-K most affected Stations \n\t0. Go back" << endl;
@@ -148,13 +148,12 @@ int Interface::initiate() {
             cout << "Enter the k: " << endl;
             cin >> k;
             int k1 = stoi(k);
-            topKfailure(segmentFailures, k1);
-
+            /*topKFailure(segmentFailures, k1);
             cout << " " << endl;
             cout << "To go back press[0]" << endl;
             cin >> t;
             if (t == "0") goto MenuBasic;
-            while(t != "0"){ cin >> t; }
+            while(t != "0"){ cin >> t; }*/
         }
     }
 
