@@ -139,7 +139,7 @@ int getStationIndex(const vector<Station>& graph, const Station& station) {
 }
 
 // Modified version of Dijkstra's algorithm
-int maxTrainsBetweenStations(const vector<Station>& graph, const Station& source, const Station& destination) {
+int Station::maxTrainsBetweenStations(const vector<Station>& graph, const Station& source, const Station& destination) {
     int sourceIndex = getStationIndex(graph, source);
     int destIndex = getStationIndex(graph, destination);
     if (sourceIndex < 0 || destIndex < 0) {
