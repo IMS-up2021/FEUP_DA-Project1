@@ -3,7 +3,7 @@
 //
 
 #include <utility>
-
+#include <limits>
 #include "../header/Station.h"
 
 Station::Station(){
@@ -80,4 +80,49 @@ void Station::setTrips(const vector<Trip> &trips1) {
 
 void Station::addTrip(Trip& trip)  {
     trips.push_back(trip);
+}
+//I don't know if it's needed
+struct StationDistance {
+    Station* station;
+    int distance;
+
+    StationDistance(Station* station, int distance) : station(station), distance(distance) {}
+
+    bool operator<(const StationDistance& other) const {
+        return distance > other.distance;
+    }
+};
+
+// Dijkstra's shortest path algorithm, from a source station to a destination station
+int Station::minCost(Station* src, Station* dest) {
+    unordered_map<Station*, int> dist;
+    for (auto& station : allStations) {
+        dist[station] = numeric_limits<int>::max();
+    }
+    dist[src] = 0;
+
+    priority_queue<StationDistance> pq;
+    pq.emplace(source, 0);
+
+    while (!pq.empty()) {
+        auto curr = pq.top();
+        pq.pop();
+
+        if (curr.station == dest) {
+            return dist[curr.station];
+        }
+
+        for (const auto& trip : curr.station->getTrips()) {
+            int cost = trip.getService() == "STANDARD" ? 2 : 4;
+
+            int newDist = curr.distance + cost;
+            if (newDist < dist[allStations[trip.getDestination()]]) {
+                dist[allStations[trip.getDestination()]] = newDist;
+                pq.emplace(allStations[trip.getDestination()], newDist);
+            }
+        }
+    }
+
+    //destination isn't reachable
+    return -1;
 }

@@ -56,16 +56,20 @@ public:
     bool operator==(const Station &other) const;
 
     bool operator<(const Station &other) const;
+
+    int minCost(Station* src, Station* dest);
 };
 
-/*struct StationHash{
-    size_t operator() (const Station& other) const{
-        size_t res = 0;
-        for (char c : other.getName()) {
-            res += 13 * c;
-        }
-        return res;
+//I don't know if it's needed
+struct StationDistance {
+    Station* station;
+    int distance;
+
+    StationDistance(Station* station, int distance) : station(station), distance(distance) {}
+
+    bool operator<(const StationDistance& other) const {
+        return distance > other.distance;
     }
-};*/
+};
 
 #endif //DAGRUPO_STATION_H
