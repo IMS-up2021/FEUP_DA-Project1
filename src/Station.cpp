@@ -82,7 +82,7 @@ void Station::addTrip(Trip& trip)  {
     trips.push_back(trip);
 }
 //I don't know if it's needed
-struct StationDistance {
+/*struct StationDistance {
     Station* station;
     int distance;
 
@@ -91,10 +91,10 @@ struct StationDistance {
     bool operator<(const StationDistance& other) const {
         return distance > other.distance;
     }
-};
+};*/
 
 // Dijkstra's shortest path algorithm, from a source station to a destination station
-int Station::minCost(Station* src, Station* dest) {
+/*int Station::minCost(Station* src, Station* dest) {
     unordered_map<Station*, int> dist;
     for (auto& station : allStations) {
         dist[station] = numeric_limits<int>::max();
@@ -125,20 +125,21 @@ int Station::minCost(Station* src, Station* dest) {
 
     //destination isn't reachable
     return -1;
-}
+}*/
 
 
 // Helper function to get the index of a station in the graph
-int getStationIndex(const vector<Station>& graph, const Station& station) {
+/*int getStationIndex(const vector<Station>& graph, const Station& station) {
     auto it = find(graph.begin(), graph.end(), station);
     if (it != graph.end()) {
         return distance(graph.begin(), it);
     } else {
         return -1;  //not found
     }
-}
+}*/
 
 // Modified version of Dijkstra's algorithm
+/*
 int Station::maxTrainsBetweenStations(const vector<Station>& graph, const Station& source, const Station& destination) {
     int sourceIndex = getStationIndex(graph, source);
     int destIndex = getStationIndex(graph, destination);
@@ -175,4 +176,4 @@ int Station::maxTrainsBetweenStations(const vector<Station>& graph, const Statio
     }
 
     return maxTrains;
-}
+}*/
