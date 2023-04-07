@@ -4,6 +4,7 @@
 
 #include <utility>
 #include <limits>
+#include <queue>
 #include "../header/Station.h"
 
 Station::Station(){
@@ -15,6 +16,8 @@ Station::Station(){
 }
 
 Station::Station(string name, string district, string mun, string township, string line) : name_(std::move(name)), district_(std::move(district)), mun_(std::move(mun)), township_(std::move(township)), line_(std::move(line)) {}
+
+Station::Station(string name) : name_(std::move(name)) {}
 
 string Station::getName() const{
     return name_;
@@ -81,99 +84,18 @@ void Station::setTrips(const vector<Trip> &trips1) {
 void Station::addTrip(Trip& trip)  {
     trips.push_back(trip);
 }
-//I don't know if it's needed
-/*struct StationDistance {
-    Station* station;
-    int distance;
+void Station::addIncomingTrip(Trip& trip)  {
+    incomingTrips.push_back(trip);
+}
 
-    StationDistance(Station* station, int distance) : station(station), distance(distance) {}
+const vector<Trip> &Station::getIncomingTrips() const {
+    return incomingTrips;
+}
 
-    bool operator<(const StationDistance& other) const {
-        return distance > other.distance;
-    }
-};*/
-
-// Dijkstra's shortest path algorithm, from a source station to a destination station
-/*int Station::minCost(Station* src, Station* dest) {
-    unordered_map<Station*, int> dist;
-    for (auto& station : allStations) {
-        dist[station] = numeric_limits<int>::max();
-    }
-    dist[src] = 0;
-
-    priority_queue<StationDistance> pq;
-    pq.emplace(source, 0);
-
-    while (!pq.empty()) {
-        auto curr = pq.top();
-        pq.pop();
-
-        if (curr.station == dest) {
-            return dist[curr.station];
-        }
-
-        for (const auto& trip : curr.station->getTrips()) {
-            int cost = trip.getService() == "STANDARD" ? 2 : 4;
-
-            int newDist = curr.distance + cost;
-            if (newDist < dist[allStations[trip.getDestination()]]) {
-                dist[allStations[trip.getDestination()]] = newDist;
-                pq.emplace(allStations[trip.getDestination()], newDist);
-            }
-        }
-    }
-
-    //destination isn't reachable
-    return -1;
-}*/
+void Station::setIncomingTrips(const vector<Trip> &incomingTrips1) {
+    incomingTrips = incomingTrips1;
+}
 
 
-// Helper function to get the index of a station in the graph
-/*int getStationIndex(const vector<Station>& graph, const Station& station) {
-    auto it = find(graph.begin(), graph.end(), station);
-    if (it != graph.end()) {
-        return distance(graph.begin(), it);
-    } else {
-        return -1;  //not found
-    }
-}*/
 
-// Modified version of Dijkstra's algorithm
-/*
-int Station::maxTrainsBetweenStations(const vector<Station>& graph, const Station& source, const Station& destination) {
-    int sourceIndex = getStationIndex(graph, source);
-    int destIndex = getStationIndex(graph, destination);
-    if (sourceIndex < 0 || destIndex < 0) {
-        return -1;  // Invalid
-    }
 
-    int numStations = graph.size();
-    vector<int> dist(numStations, numeric_limits<int>::max());
-    vector<int> prev(numStations, -1);
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
-
-    dist[sourceIndex] = 0;
-    pq.push({0, sourceIndex});
-
-    while (!pq.empty()) {
-        int x = pq.top().second;
-        pq.pop();
-
-        if (x == destIndex) {
-            break;  // Found shortest path
-        }
-
-    int maxTrains = 0;
-    int c = destIndex;
-    while (prev[c] != -1) {
-        for (const auto& trip : graph[c].getTrips()) {
-            if (trip.getDestination() == prev[c]) {
-                maxTrains = max(maxTrains, trip.getCapacity());
-                break;
-            }
-        }
-        c = prev[c];
-    }
-
-    return maxTrains;
-}*/

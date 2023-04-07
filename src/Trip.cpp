@@ -30,5 +30,15 @@ void Trip::setService(const string &service1) {
     Trip::service = service1;
 }
 
-Trip::Trip(int destination, int capacity, string service) : destination(destination), capacity(capacity),
+Trip::Trip(int origin,int destination, int capacity, string service) : origin(origin),destination(destination), capacity(capacity),
                                                                    service(std::move(service)) {}
+Trip::Trip(int origin, int destination, int capacity) : origin(origin), destination(destination), capacity(capacity) {}
+
+int Trip::getOrigin() const {
+    return origin;
+}
+
+void Trip::setOrigin(int originArg) {
+    Trip::origin = originArg;
+}
+

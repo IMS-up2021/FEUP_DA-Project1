@@ -33,7 +33,7 @@ void CSVReader::read_stations(const string &file, Network *network) {
         getline(inputString, mun, ',');
         getline(inputString, township, ',');
         getline(inputString, lineData, ',');
-        if (hashTable.find(name) == hashTable.end()) {
+        if (hashTable.find(name) == hashTable.end() && !district.empty()) {
             Station station = Station(name,district,mun,township,lineData);
             network->addStation(station);
             hashTable[name] = counter++;
@@ -51,27 +51,33 @@ void CSVReader::read_network(const string &file, Network *network) {
     getline(in, line);
 
     while(getline(in,line)){
-        string stationA;
-        string stationB;
+        string stationSource;
+        string stationDestination;
         string capacityString;
         string service;
 
         stringstream inputString(line);
 
-        getline(inputString, stationA, ',');
-        getline(inputString, stationB, ',');
+        getline(inputString, stationSource, ',');
+        getline(inputString, stationDestination, ',');
         getline(inputString,capacityString , ',');
         getline(inputString, service, ',');
         int capacity = atoi(capacityString.c_str());
         unordered_map<string,int> nameToIndex;
         nameToIndex = network->getStationsNameToIndex();
         int source;
-        source = nameToIndex[stationA] - 1;
+        source = nameToIndex[stationSource] - 1;
         int destination ;
-        destination = nameToIndex[stationB] - 1;
+        destination = nameToIndex[stationDestination] - 1;
         network->setResidualCap(source,destination,capacity);
-        Trip trip = Trip(destination,capacity,service);
+        network->setResidualCap(destination,source,capacity);
+        Trip trip = Trip(source,destination,capacity,service);
+        Trip tripReverse = Trip(destination,source, capacity, service);
         network->getRealStations()[source].addTrip(trip);
+        network->getRealStations()[source].addIncomingTrip(tripReverse);
+        network->getRealStations()[destination].addTrip(tripReverse);
+        network->getRealStations()[destination].addIncomingTrip(trip);
+
     }
     network->setResidualReset(network->getResidual());
 }
@@ -89,7 +95,7 @@ After the vectors are created, the sort() algorithm is used to sort them in desc
 
 
 
-/*void CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
+void CSVReader::topKmaintenance(const vector<Station>& stations, int k, const string& x){
     if (x == "1"){
         unordered_map<string, int> munCapacity;
         // Sum the capacity by municipality
@@ -145,4 +151,3 @@ void CSVReader::topKFailure(const vector<pair<Station,Station>>& segmentFailures
         cout << x.first<< endl;
     }
 }
-*/

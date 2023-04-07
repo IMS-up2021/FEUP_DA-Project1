@@ -11,13 +11,21 @@ using namespace std;
 
 class Trip {
 private:
+    int origin;
+public:
+    int getOrigin() const;
+
+    void setOrigin(int originArg);
+
+private:
     int destination;
     int capacity;
     string service;
 public:
-    Trip(int destination, int capacity, string service);
+    Trip(int origin,int destination, int capacity, string service);
 
-public:
+    Trip(int origin, int destination, int capacity);
+
     int getDestination() const;
 
     void setDestination(int destination1);

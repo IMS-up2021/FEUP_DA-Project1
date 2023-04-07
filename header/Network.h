@@ -4,6 +4,7 @@
 
 #ifndef DAGRUPO_NETWORK_H
 #define DAGRUPO_NETWORK_H
+
 #include <unordered_map>
 #include "Station.h"
 
@@ -20,14 +21,12 @@ private:
 public:
     const vector<vector<int>> &getResidual() const;
 
-    void setResidual(const vector<vector<int>> &residual);
+    void setResidual(const vector<vector<int>> &residualArg);
 
     const vector<vector<int>> &getResidualReset() const;
 
-    void setResidualReset(const vector<vector<int>> &residualReset);
+    void setResidualReset(const vector<vector<int>> &residualResetArg);
 
-
-public:
     Network();
 
     void addStation(const Station &station);
@@ -48,15 +47,29 @@ public:
 
     int maxFlowStations(string station1 = "none", string station2 = "none");
 
-    int bfs(int s, int t);
+    int bfsAugmentingPath(int s, int t);
 
     void fillResidual();
 
-    void setResidualCap(int a, int b,int cap); //from a to b
+    void setResidualCap(int a, int b, int cap); //from a to b
 
     int max_flow(int s, int t);
 
-    vector<pair<Station,Station>> maxFlowPairs();
+    vector<pair<Station, Station>> maxFlowPairs();
+
+    void maxArriveStation(const string& a);
+
+    int maxFlowStationsDijkstra(string station1 = "none", string station2 = "none");
+
+    int max_Flow_Dijkstra(int s, int t);
+
+    pair<int,int> dijkstraAugmentingPath(int s, int t);
+
+
+
+
+
+
 };
 
 #endif //DAGRUPO_NETWORK_H

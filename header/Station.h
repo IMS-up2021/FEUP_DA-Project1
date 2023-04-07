@@ -22,6 +22,12 @@ private:
     string township_;
     string line_;
     vector<Trip> trips;
+    vector<Trip> incomingTrips;
+public:
+    const vector<Trip> &getIncomingTrips() const;
+
+    void setIncomingTrips(const vector<Trip> &incomingTrips1);
+
 public:
     void setName(const string &name);
 
@@ -39,9 +45,13 @@ public:
 
     void addTrip(Trip &trip);
 
+    void addIncomingTrip(Trip &trip);
+
     Station();
 
     Station(string name, string district, string mun, string township, string line);
+
+    explicit Station(string name);
 
     string getName() const;
 
@@ -62,16 +72,5 @@ public:
     int maxTrainsBetweenStations(const vector<Station>& graph, const Station& source, const Station& destination);
 };
 
-//I don't know if it's needed
-struct StationDistance {
-    Station* station;
-    int distance;
-
-    StationDistance(Station* station, int distance) : station(station), distance(distance) {}
-
-    bool operator<(const StationDistance& other) const {
-        return distance > other.distance;
-    }
-};
 
 #endif //DAGRUPO_STATION_H
