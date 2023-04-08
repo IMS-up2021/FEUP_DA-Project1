@@ -71,13 +71,6 @@ public:
 
     vector<pair<int,int>> mostAffectedByFailure(const string& station1 = "none", const string& station2 = "none");
 
-
-
-
-
-
-
-
 };
 
 #endif //DAGRUPO_NETWORK_H

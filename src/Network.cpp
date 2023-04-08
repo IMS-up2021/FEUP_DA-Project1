@@ -69,7 +69,7 @@ int Network::maxFlowStations(string station1, string station2) {
     stationTwo = stationsNameToIndex[station2] - 1;
     int mf = max_flow(stationOne, stationTwo);
     residual = residualReset;
-    //cout <<station1<<" to "<<station2<<":" << mf << endl;
+    cout <<station1<<" to "<<station2<<":" << mf << endl;
     return mf;
 
 }

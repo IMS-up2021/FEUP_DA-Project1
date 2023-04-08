@@ -7,6 +7,7 @@
 #include <set>
 #include <algorithm>
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -14,6 +15,17 @@ bool Interface::is_in(string choice, int lim_start, int lim_end) const{
     set<string> availableChoices={"0","1","2","3","4","5","6","7","8","9"};
     if(availableChoices.find(choice)!= availableChoices.end()&&stoi(choice)>=lim_start && stoi(choice) <=lim_end ) return true;
     return false;
+}
+
+void Interface::networkDisplay(){
+    ifstream n("network.csv");
+    if (n.is_open()){
+        string line;
+        while(getline(n,line)){
+            cout << line << endl;
+        }
+    }
+    n.close();
 }
 
 int Interface::initiate() {
@@ -26,9 +38,10 @@ int Interface::initiate() {
         cin >> userInput;
     }
 
-    //Stations Map
+    //Stations Map (!!!)
     if (userInput == "1"){
         MenuMap: string m;
+        networkDisplay();
         cout << "To go back press[0]" << endl;
         cin >> m;
         if (m == "0") goto MenuPrincipal;
@@ -61,7 +74,7 @@ int Interface::initiate() {
             if (w == "1") {
                 MenuGlobal:
                 string g;
-                //aplicar função do ex7 da tp4
+                maxFlowStations(station1, station2);
                 cout << "To go back press[0]" << endl;
                 cin >> g;
                 if (g == "0") goto MenuFlow;
@@ -70,7 +83,7 @@ int Interface::initiate() {
                 //if perso
             else if (w == "2"){
                 MenuPer: string p;
-                //aplicar função do ex7 da tp4
+                maxFlowStations(station1, station2);
                 cout << "To go back press[0]" << endl;
                 cin >> p;
                 if (p == "0") goto MenuFlow;
@@ -87,9 +100,7 @@ int Interface::initiate() {
                 cout << "Enter the k: " << endl;
                 cin >> k;
                 int k1 = stoi(k);
-                //topKmaintenance(stations, k1, x);
-
-                cout << " " << endl;
+                topKmaintenance(k1,x);
                 cout << "To go back press[0]" << endl;
                 cin >> t;
                 if (t == "0") goto MenuBasic;
@@ -103,9 +114,7 @@ int Interface::initiate() {
             cout << "Please, introduce the name of the station: " << endl;
             cin.ignore();
             getline(cin,stb);
-            //cout << stb << ", " << maxArrivals(net, stb) << endl;
-
-            cout << " " << endl;
+            maxArriveStation(stb);
             cout << "To go back press[0]" << endl;
             cin >> a;
             if (a == "0") goto MenuBasic;
@@ -116,6 +125,7 @@ int Interface::initiate() {
         //Optimization
     else if (userInput == "3"){
         MenuCost: string c;
+        maxFlowStationsDijkstra(station1, station2);
         cout << "To go back press[0]" << endl;
         cin >> c;
         if (c == "0") goto MenuPrincipal;
@@ -136,6 +146,7 @@ int Interface::initiate() {
         //if 1.
         if (f == "1"){
             MenuMin: string i;
+            maxFlowSubgraph(station1, station2);
             cout << "To go back press[0]" << endl;
             cin >> i;
             if (i == "0") goto MenuFailure;
@@ -144,20 +155,17 @@ int Interface::initiate() {
 
         //if 2.
         if (f == "1"){
-            /*MenuK: string k;
+            MenuK: string k;
             cout << "Enter the k: " << endl;
             cin >> k;
             int k1 = stoi(k);
-            topKFailure(segmentFailures, k1);
-            cout << " " << endl;
+            mostAffectedByFailure(const string &station1, const string &station2);
             cout << "To go back press[0]" << endl;
             cin >> t;
             if (t == "0") goto MenuBasic;
-            while(t != "0"){ cin >> t; }*/
+            while(t != "0"){ cin >> t; }
         }
     }
 
     return 0;
 }
-
-Interface::Interface(CSVReader &reader) : database(&reader) {}

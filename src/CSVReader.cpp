@@ -82,17 +82,3 @@ void CSVReader::read_network(const string &file, Network *network) {
     network->setResidualReset(network->getResidual());
 }
 
-
-
-/*This code creates two vectors of pairs: sortedMunicipalities and sortedDistricts. Each pair has a string as the
- first element and an int as the second element. The string element represents the name of the municipality or
- district, and the int element represents the sum of capacities of all trips starting or ending in the corresponding
- municipality or district.
-The constructor of each vector receives two arguments: the first argument is an iterator pointing to the beginning
- of the source container, and the second argument is an iterator pointing to the end of the source container (map).
-After the vectors are created, the sort() algorithm is used to sort them in descending order of the int values
- (i.e., the sum of capacities)*/
-
-
-
-

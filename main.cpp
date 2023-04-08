@@ -1,6 +1,7 @@
 #include <iostream>
 #include "header/Network.h"
 #include "header/CSVReader.h"
+#include "header/Interface.h"
 
 using namespace std;
 int main() {
@@ -26,6 +27,6 @@ int main() {
     //4.2
     //n->mostAffectedByFailure("Trofa","Porto Campanhã");//4.2 meh
 
-
+    initiate();
     return 0;
 }
