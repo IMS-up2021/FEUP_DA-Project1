@@ -19,6 +19,8 @@ private:
     vector<vector<int>> residualReset;
     int n{};//number of stations
 public:
+    void topKmaintenance( int k, const string& x);
+
     const vector<vector<int>> &getResidual() const;
 
     void setResidual(const vector<vector<int>> &residualArg);
@@ -57,13 +59,19 @@ public:
 
     vector<pair<Station, Station>> maxFlowPairs();
 
-    void maxArriveStation(const string& a);
+    int maxArriveStation(const string& a);
 
     int maxFlowStationsDijkstra(string station1 = "none", string station2 = "none");
 
     int max_Flow_Dijkstra(int s, int t);
 
     pair<int,int> dijkstraAugmentingPath(int s, int t);
+
+    int maxFlowSubgraph(const string& station1 = "none", const string& station2 = "none");
+
+    vector<pair<int,int>> mostAffectedByFailure(const string& station1 = "none", const string& station2 = "none");
+
+
 
 
 

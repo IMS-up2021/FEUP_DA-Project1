@@ -144,11 +144,11 @@ int Interface::initiate() {
 
         //if 2.
         if (f == "1"){
-            MenuK: string k;
+            /*MenuK: string k;
             cout << "Enter the k: " << endl;
             cin >> k;
             int k1 = stoi(k);
-            /*topKFailure(segmentFailures, k1);
+            topKFailure(segmentFailures, k1);
             cout << " " << endl;
             cout << "To go back press[0]" << endl;
             cin >> t;

@@ -20,8 +20,7 @@ using namespace std;
 class CSVReader {
 private:
     void populate();
-    static void topKmaintenance(const vector<Station>& stations, int k, const string& x);
-    static void topKFailure(const vector<pair<Station,Station>>& segmentFailures, int k);
+
 
 public:
     CSVReader();

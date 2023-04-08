@@ -69,7 +69,7 @@ int Network::maxFlowStations(string station1, string station2) {
     stationTwo = stationsNameToIndex[station2] - 1;
     int mf = max_flow(stationOne, stationTwo);
     residual = residualReset;
-    cout <<station1<<" to "<<station2<<":" << mf << endl;
+    //cout <<station1<<" to "<<station2<<":" << mf << endl;
     return mf;
 
 }
@@ -93,7 +93,9 @@ int Network::bfsAugmentingPath(int s, int t) {
             if (parent[v] == -1 && residual[u][v] > 0) {
                 parent[v] = u;
                 new_cap = min(cap, residual[u][v]);//min para ir guardando bottleneck no path
-                if (v == t) return new_cap;
+                if (v == t) {
+                    return new_cap;
+                }
                 q.push({v, new_cap});//para cada node, guardamos na queue com a capacidade até ele
             }
         }
@@ -102,7 +104,9 @@ int Network::bfsAugmentingPath(int s, int t) {
             if (parent[v] == -1 && residual[u][v] > 0) {
                 parent[v] = u;
                 new_cap = min(cap, residual[u][v]);//min para ir guardando bottleneck no path
-                if (v == t) return new_cap;
+                if (v == t) {
+                    return new_cap;
+                }
                 q.push({v, new_cap});//para cada node, guardamos na queue com a capacidade até ele
             }
         }
@@ -177,7 +181,7 @@ vector<pair<Station, Station>> Network::maxFlowPairs() {
     return pairs;
 }
 
-void Network::maxArriveStation(const string& sinkString) {
+int Network::maxArriveStation(const string& sinkString) {
     //criar source node capacidade infinita
     //ligar a todos os nodes menos o que queremos saber max flow
     //max flow de source até station //done
@@ -194,8 +198,11 @@ void Network::maxArriveStation(const string& sinkString) {
     realStations.push_back(sourceStation);
 
     stationsNameToIndex["source"] = realStations.size();
-    cout << "MaxFlowSourceSink:" <<  maxFlowStations("source", sinkString);
+    int rt = maxFlowStations("source", sinkString);
+    //cout << "MaxFlowSourceSink:" <<  rt;
     realStations.pop_back();
+    return rt;
+
 }
 
 int Network::maxFlowStationsDijkstra(string station1, string station2) {
@@ -316,6 +323,205 @@ pair<int,int> Network::dijkstraAugmentingPath(int s, int t) {
     }
     return {0,1e9};
 }
+
+int Network::maxFlowSubgraph(const std::string& station1, const std::string& station2) {
+    cout<<"no path from station "<<station1<<" to "<<station2<<endl;
+    Trip removeOne = Trip(-1,-1,-1);
+    Trip removeTwo = Trip(-1, -1, -1);
+    Trip removeOneD2 = Trip(-1,-1,-1);
+    Trip removeTwoD2 = Trip(-1,-1,-1);
+    int stationOne = stationsNameToIndex[station1] - 1;
+    int stationTwo = stationsNameToIndex[station2] - 1;
+    Station stationUpdated1 = realStations[stationOne];
+    Station stationUpdated2 = realStations[stationTwo];
+    vector<Trip> updatedTrips;
+    updatedTrips.clear();
+    bool ret = true;
+    for (const Trip& trip : stationUpdated1.getTrips()){
+        if (trip.getDestination()==stationTwo){
+            ret = false;
+            removeOne= trip;
+            continue;
+        }
+        updatedTrips.push_back(trip);
+    }
+    if(ret){
+        cout<<"invalid input";
+        return  1;
+    }
+    stationUpdated1.setTrips(updatedTrips);
+    updatedTrips.clear();
+    for (const Trip& trip : stationUpdated1.getIncomingTrips()){
+        if (trip.getOrigin()==stationTwo){
+            removeOneD2= trip;
+            continue;
+        }
+        updatedTrips.push_back(trip);
+    }
+    stationUpdated1.setIncomingTrips(updatedTrips);
+    realStations[stationOne]=stationUpdated1;
+    updatedTrips.clear();
+    for (const Trip& trip : stationUpdated2.getIncomingTrips()){
+        if (trip.getOrigin()==stationOne){
+            removeTwo = trip;
+            continue;
+        }
+        updatedTrips.push_back(trip);
+    }
+    stationUpdated2.setIncomingTrips(updatedTrips);
+    updatedTrips.clear();
+    for (const Trip& trip : stationUpdated2.getTrips()){
+        if (trip.getDestination()==stationOne){
+            removeTwoD2   = trip;
+            continue;
+        }
+        updatedTrips.push_back(trip);
+    }
+    realStations[stationTwo]=stationUpdated2;
+    cout<<endl<<"enter stations for flow calculation:"<<endl;
+    string sourceS;
+    string sinkS;
+    getline(cin, sourceS);
+    cout<<""<<endl;
+    getline(cin, sinkS);
+    int flow = maxFlowStations(sourceS,sinkS);
+    stationUpdated2.addIncomingTrip(removeTwo);
+    stationUpdated1.addTrip(removeOne);
+    stationUpdated2.addTrip(removeTwoD2);
+    stationUpdated1.addIncomingTrip(removeOneD2);
+    realStations[stationTwo]=stationUpdated2;
+    realStations[stationOne]=stationUpdated1;
+    cout<<"in the sub graph the max flow is: " <<flow<<endl;
+    return flow;
+}
+
+vector<pair<int, int>> Network::mostAffectedByFailure(const string &station1, const string &station2) {
+    Trip removeOne = Trip(-1,-1,-1);
+    Trip removeTwo = Trip(-1,-1,-1);
+    Trip removeOneD2 = Trip(-1,-1,-1);
+    Trip removeTwoD2 = Trip(-1,-1,-1);
+    vector<pair<int, int>> retur;
+    for (int i = 0;i<realStations.size();i++){
+        retur.emplace_back(i, maxArriveStation(realStations[i].getName()));
+    }
+    int stationOne = stationsNameToIndex[station1] - 1;
+    int stationTwo = stationsNameToIndex[station2] - 1;
+    Station stationUpdated1 = realStations[stationOne];
+    Station stationUpdated2 = realStations[stationTwo];
+    vector<Trip> updatedTrips;
+    updatedTrips.clear();
+    bool ret = true;
+    for (const Trip& trip : stationUpdated1.getTrips()){
+        if (trip.getDestination()==stationTwo){
+            ret = false;
+            removeOne= trip;
+            continue;
+        }
+        updatedTrips.push_back(trip);
+    }
+    if(ret){
+        //cout<<"invalid input";
+        return  {};
+    }
+    stationUpdated1.setTrips(updatedTrips);
+    updatedTrips.clear();
+    for (const Trip& trip : stationUpdated1.getIncomingTrips()){
+        if (trip.getOrigin()==stationTwo){
+            removeOneD2= trip;
+            continue;
+        }
+        updatedTrips.push_back(trip);
+    }
+    stationUpdated1.setIncomingTrips(updatedTrips);
+    realStations[stationOne]=stationUpdated1;
+    updatedTrips.clear();
+    for (const Trip& trip : stationUpdated2.getIncomingTrips()){
+        if (trip.getOrigin()==stationOne){
+            removeTwo = trip;
+            continue;
+        }
+        updatedTrips.push_back(trip);
+    }
+    stationUpdated2.setIncomingTrips(updatedTrips);
+
+    updatedTrips.clear();
+    for (const Trip& trip : stationUpdated2.getTrips()){
+        if (trip.getDestination()==stationOne){
+            removeTwoD2   = trip;
+            continue;
+        }
+        updatedTrips.push_back(trip);
+    }
+    stationUpdated2.setTrips(updatedTrips);
+    updatedTrips.clear();
+    realStations[stationTwo]=stationUpdated2;
+
+    for (int i = 0;i<realStations.size();i++){
+        if (i==467){
+            cout<<"hey";
+        }
+        int a = maxArriveStation(realStations[i].getName());
+        retur[i].second = retur[i].second- a;
+    }
+
+    stationUpdated2.addIncomingTrip(removeTwo);
+    stationUpdated1.addTrip(removeOne);
+    stationUpdated2.addTrip(removeTwoD2);
+    stationUpdated1.addIncomingTrip(removeOneD2);
+    realStations[stationTwo]=stationUpdated2;
+    realStations[stationOne]=stationUpdated1;
+    std::sort(retur.begin(), retur.end(), [](auto &left, auto &right) {
+        return left.second < right.second;
+    });
+    int j = 518;
+
+    cout<<endl<<"MOST AFFECTED:"<<endl;
+    cout<<"Trip Removed :" <<station1<<" to "<<station2<<"//"<<endl;
+    while (retur[j].second!=0 || j<0){
+        cout<<realStations[retur[j].first].getName()<<" delta: " <<retur[j].second<<endl;
+        j--;
+    }
+    return retur;
+}
+
+void Network::topKmaintenance( int k, const string& x){
+    if (x == "1"){
+        unordered_map<string, int> munCapacity;
+        // Sum the capacity by municipality
+        for (const auto& station : realStations) {
+            int capacitySum = 0;
+            for (const auto& trip : station.getTrips()) {
+                capacitySum += trip.getCapacity();
+            }
+            munCapacity[station.getMun()] += capacitySum;
+        }
+        //creating a sorted vector
+        vector<pair<string, int>> sortedMunicipalities(munCapacity.begin(), munCapacity.end());
+        sort(sortedMunicipalities.begin(), sortedMunicipalities.end(), [](auto& left, auto& right) { return left.second > right.second; });
+        vector<pair<string, int>> topKMunicipalities(sortedMunicipalities.begin(), sortedMunicipalities.begin() + k);
+        for (int x = 0; x <= topKMunicipalities.size(); x++){
+            cout << topKMunicipalities[x].first << endl;
+        }
+    }
+    else if (x == "2"){
+        unordered_map<string, int> districtCapacity;
+        // Sum the capacity by district
+        for (const auto& station : realStations) {
+            int capacitySum = 0;
+            for (const auto& trip : station.getTrips()) {
+                capacitySum += trip.getCapacity();
+            }
+            districtCapacity[station.getDistrict()] += capacitySum;
+        }
+        //creating a sorted vector
+        vector<pair<string, int>> sortedDistricts(districtCapacity.begin(), districtCapacity.end());
+        sort(sortedDistricts.begin(), sortedDistricts.end(), [](auto& left, auto& right) { return left.second > right.second; });
+        vector<pair<string, int>> topKDistricts(sortedDistricts.begin(), sortedDistricts.begin() + k);
+        for (auto x: topKDistricts)
+            cout << x.first << endl;
+    }
+}
+
 
 
 
