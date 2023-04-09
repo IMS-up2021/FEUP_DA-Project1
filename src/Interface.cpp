@@ -18,7 +18,7 @@ bool Interface::is_in(string choice, int lim_start, int lim_end) const{
 }
 
 void Interface::networkDisplay(){
-    ifstream n("network.csv");
+    ifstream n("Data/network.csv");
     if (n.is_open()){
         string line;
         while(getline(n,line)){
@@ -159,7 +159,7 @@ int Interface::initiate() {
             cout << "Enter the k: " << endl;
             cin >> k;
             int k1 = stoi(k);
-            mostAffectedByFailure(const string &station1, const string &station2);
+            mostAffectedByFailure(station1, station2);
             cout << "To go back press[0]" << endl;
             cin >> t;
             if (t == "0") goto MenuBasic;
