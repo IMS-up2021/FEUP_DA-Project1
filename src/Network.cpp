@@ -34,32 +34,18 @@ vector<Station> &Network::getRealStations() {
 const unordered_map<string, int> &Network::getStationsNameToIndex() const {
     return stationsNameToIndex;
 }
-/*
-int Network::getN() const {
-    return n;
-}*/
-
-int Network::maxArrivals(const string &stb) {
-    int capSum = 0;
-    int i = getStationsNameToIndex().at(stb);
-    i--;
-    for (const auto &station: getRealStations()) {
-        for (const auto &trip: station.getTrips()) {
-            if (trip.getDestination() == i) {
-                capSum += trip.getCapacity();
-            }
-        }
-    }
-    return capSum;
-}
 
 int Network::maxFlowStations(string station1, string station2) {
     int stationOne, stationTwo;
     if (station1 == "none") {
+
         cout << "Enter station of origin:\n";
+        cin.ignore();
         getline(cin, station1);
+
         cout << "Enter station of destination:\n";
         getline(cin, station2);
+
         cout << "From " << station1 << " to " << station2 << " ";
 
     }
@@ -69,7 +55,7 @@ int Network::maxFlowStations(string station1, string station2) {
     stationTwo = stationsNameToIndex[station2] - 1;
     int mf = max_flow(stationOne, stationTwo);
     residual = residualReset;
-    cout <<station1<<" to "<<station2<<":" << mf << endl;
+    cout <<station1<<" to "<<station2<<": " << mf << endl;
     return mf;
 
 }
@@ -77,7 +63,8 @@ int Network::maxFlowStations(string station1, string station2) {
 
 vector<int> parent; // parent of each node in the BFS tree
 
-int Network::bfsAugmentingPath(int s, int t) {
+int Network::
+bfsAugmentingPath(int s, int t) {
     parent.resize(n+1);
     fill(parent.begin(), parent.end(),  -1);
     parent[s] = -2; // mark source node as visited
@@ -144,14 +131,6 @@ const vector<vector<int>> &Network::getResidual() const {
     return residual;
 }
 
-/*void Network::setResidual(const vector<vector<int>> &residualArg) {
-    Network::residual = residualArg;
-}*/
-
-/*const vector<vector<int>> &Network::getResidualReset() const {
-    return residualReset;
-}*/
-
 void Network::setResidualReset(const vector<vector<int>> &residualResetArg) {
     Network::residualReset = residualResetArg;
 }
@@ -177,7 +156,7 @@ vector<pair<Station, Station>> Network::maxFlowPairs() {
 
     }
 
-
+    cout<<endl<<"MAX FLOW:"<<max<<endl;
     return pairs;
 }
 
@@ -186,6 +165,7 @@ int Network::maxArriveStation(const string& sinkString) {
     //ligar a todos os nodes menos o que queremos saber max flow
     //max flow de source até station //done
     int sink = stationsNameToIndex[sinkString] - 1;
+    //cout << stationsNameToIndex["Porto Campanhã"]<<endl;
     Station sourceStation = Station("source");
     for (int i = 0; i < realStations.size(); i++) {
         if(i==sink || realStations[i].getTrips().size()!=1){
@@ -199,7 +179,7 @@ int Network::maxArriveStation(const string& sinkString) {
 
     stationsNameToIndex["source"] = realStations.size();
     int rt = maxFlowStations("source", sinkString);
-    //cout << "MaxFlowSourceSink:" <<  rt;
+    cout << "MaxFlowSourceSink:" <<  rt;
     realStations.pop_back();
     return rt;
 
@@ -209,8 +189,10 @@ int Network::maxFlowStationsDijkstra(string station1, string station2) {
     int stationOne, stationTwo;
     if (station1 == "none") {
         cout << "Enter station of origin:\n";
+        cin.ignore();
         getline(cin, station1);
         cout << "Enter station of destination:\n";
+        //cin.ignore();
         getline(cin, station2);
         cout << "From " << station1 << " to " << station2 << " ";
 
@@ -499,9 +481,10 @@ void Network::topKmaintenance( int k, const string& x){
         vector<pair<string, int>> sortedMunicipalities(munCapacity.begin(), munCapacity.end());
         sort(sortedMunicipalities.begin(), sortedMunicipalities.end(), [](auto& left, auto& right) { return left.second > right.second; });
         vector<pair<string, int>> topKMunicipalities(sortedMunicipalities.begin(), sortedMunicipalities.begin() + k);
-        for (int x = 0; x <= topKMunicipalities.size(); x++){
+        for (int x = 0; x <topKMunicipalities.size(); x++){
             cout << topKMunicipalities[x].first << endl;
         }
+        return;
     }
     else if (x == "2"){
         unordered_map<string, int> districtCapacity;

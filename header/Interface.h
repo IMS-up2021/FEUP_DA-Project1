@@ -8,19 +8,18 @@
 #include <queue>
 #include <string>
 #include <list>
-#include <math.h>
+#include <cmath>
 #include "CSVReader.h"
 
 using namespace std;
 
 class Interface{
-private:
-    CSVReader* database;
 public:
     Interface();
-    bool is_in(string choice, int lim_start, int lim_end) const;
-    int initiate();
-    void networkDisplay();
+
+    static bool is_in(const string& choice, int lim_start, int lim_end) ;
+    static int initiate(Network n);
+    static void networkDisplay();
 };
 
 #endif //DAGRUPO_INTERFACE_H
