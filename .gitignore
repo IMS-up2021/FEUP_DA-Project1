@@ -1,0 +1,5 @@
+.idea/
+cmake-build-debug/
+Data/network.csv
+Data/stations.csv
+

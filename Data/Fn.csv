@@ -1,0 +1,7 @@
+Station_A,Station_B,Capacity,Service
+n1,n2,4,STANDARD
+n2,n3,2,STANDARD
+n2,n4,2,STANDARD
+n3,n5,2,STANDARD
+n4,n5,4,STANDARD
+n5,n6,15,STANDARD
