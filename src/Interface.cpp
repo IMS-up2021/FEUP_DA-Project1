@@ -19,7 +19,7 @@ bool Interface::is_in(const string& choice, int lim_start, int lim_end) {
 }
 
 void Interface::networkDisplay(){
-    ifstream n("Data/network.csv");
+    ifstream n("../Data/network.csv");
     if (n.is_open()){
         string line;
         while(getline(n,line)){

@@ -455,7 +455,7 @@ vector<pair<int, int>> Network::mostAffectedByFailure(const string &station1, co
     std::sort(retur.begin(), retur.end(), [](auto &left, auto &right) {
         return left.second < right.second;
     });
-    int j = 518;
+    int j = retur.size() - 1;
 
     cout<<endl<<"MOST AFFECTED:"<<endl;
     cout<<"Trip Removed :" <<station1<<" to "<<station2<<"//"<<endl;
